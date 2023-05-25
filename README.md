@@ -1,11 +1,9 @@
-# [ALG:BF]
-
-## A Brainfuck IDE
+# [ALG:BF] — A Brainfuck IDE
 
 [ALG:BF] is a basic IDE for the
 [Brainfuck programming language](https://en.wikipedia.org/wiki/Brainfuck)
 written in TypeScript and using React.js. A deployed version of the program can be found here:
-[Alyx.Green/bf](https://Alyx.Green/bf).
+[alyx.green/alg-bf](https://alyx.green/alg-bf).
 
 This application uses an entirely custom text editor that works by capturing key-press events from the browser and
 editing the React elements accordingly rather than rely upon pre-built text boxes or text areas. This is both because I
