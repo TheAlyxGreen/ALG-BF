@@ -1,0 +1,209 @@
+:root {
+	--char-plus-color:                          #6e5;
+	--char-minus-color:                         #f54;
+	--char-period-color:                        #48f;
+	--char-comma-color:                         #fe3;
+	--char-arrow-color:                         #d13bf7;
+	--char-bracket-color:                       #f81;
+	--char-comment-color:                       #aaa;
+	--char-warning-underline-color:             #fa3;
+	--char-warning-bg-color:                    #fa34;
+	--char-error-underline-color:               #f00;
+	--char-error-bg-color:                      #f004;
+
+	--line-background-color:                    #181c24;
+	--line-background-color-selected:           #fff1;
+	--line-background-color-selected-unfocused: #ffffff0a;
+
+	--line-number-color:                        #fff6;
+	--line-number-background-color:             #20252d;
+	--line-number-background-color-selected:    #3a424e;
+	--line-number-border-color:                 #0d0f14;
+	--line-number-border-color-selected:        #191d27;
+
+	--line-count-length:                        1ch;
+}
+
+#TextEditor {
+	font-family:                source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+	font-size:                  2rem;
+	top:                        3rem;
+	right:                      0;
+	position:                   fixed;
+	box-sizing:                 border-box;
+	width:                      100%;
+	height:                     calc(calc(100% - var(--app-header-height)) - var(--output-view-header-height));
+	margin:                     0;
+	user-select:                none;
+	outline:                    none;
+	overflow-y:                 auto;
+	cursor:                     text;
+	transition:                 height, width;
+	transition-duration:        0.2s;
+	transition-timing-function: ease-out;
+}
+
+#TextEditor.outputViewVisible {
+	height: calc(100% - calc(var(--app-header-height) + var(--output-view-height)));
+}
+
+.textEditorLine {
+	box-sizing:             border-box;
+	min-width:              100%;
+	padding-right:          0.5rem;
+	cursor:                 text;
+	content-visibility:     auto;
+	contain-intrinsic-size: 1px 2.5rem;
+	background-color:       var(--line-background-color) ch;
+}
+
+.textEditorLineNumber {
+	display:          inline-block;
+	min-height:       2.5rem;
+	height:           100%;
+	margin-right:     0.5ch;
+	padding:          0 0.5ch;
+	cursor:           default;
+	vertical-align:   top;
+	text-align:       right;
+	color:            var(--line-number-color);
+	border-right:     3px solid var(--line-number-border-color);
+	background-color: var(--line-number-background-color);
+	min-width:        var(--line-count-length);
+}
+
+.textEditorLineNumber.selected {
+	background-color: var(--line-number-background-color-selected);
+	border-right:     3px solid var(--line-number-border-color-selected);
+}
+
+.textEditorLineContent {
+	display:  inline-block;
+	position: relative;
+	left:     0;
+	width:    calc(100% - calc(var(--line-count-length) + 2ch));
+}
+
+.textEditorLine.selected {
+	background-color: var(--line-background-color-selected);
+}
+
+
+#TextEditor.unfocused .textEditorLine.selected {
+	background-color: var(--line-background-color-selected-unfocused);
+}
+
+@keyframes cursor-blink {
+	0% {
+		opacity: 0.9;
+	}
+	50% {
+		opacity: 0;
+	}
+}
+
+.textEditorCursor {
+	content:        "";
+	width:          0;
+	height:         2rem;
+	position:       relative;
+	padding:        0;
+	margin:         0;
+	display:        inline-block;
+	pointer-events: none;
+	z-index:        1;
+}
+
+.textEditorCursor::after {
+	content:        "";
+	height:         2rem;
+	width:          0.1ch;
+	position:       relative;
+	top:            0.3rem;
+	padding:        0;
+	margin:         0;
+	opacity:        0;
+	background:     #fff;
+	display:        inline-block;
+	animation:      cursor-blink 1.25s steps(1) infinite;
+	pointer-events: none;
+	z-index:        1;
+}
+
+#TextEditor.unfocused .textEditorCursor {
+	display: none;
+}
+
+
+.textEditorChar {
+	color:          var(--char-comment-color);
+	vertical-align: top;
+	position:       relative;
+	margin:         0;
+	display:        inline-block;
+	font-weight:    300;
+	text-align:     center;
+	min-width:      1.25rem;
+	min-height:     2.5rem;
+}
+
+.textEditorChar.selected {
+	background-color: #326e967f;
+}
+
+.textEditorChar > .textEditorCharSub {
+	display:        block;
+	font-size:      0.2rem;
+	padding:        0;
+	position:       relative;
+	scale:          0.9;
+	pointer-events: none;
+	margin-top:     -0.6rem;
+	height:         0.7rem;
+	text-align:     right;
+}
+
+.textEditorChar > span:first-child {
+	padding-bottom: 0.2rem;
+	padding-left:   0.15ch;
+	pointer-events: none;
+}
+
+.textEditorChar.charWhitespace > span:first-child {
+	padding: 0 0 0 100%;
+}
+
+.textEditorChar.charPlus {
+	color: var(--char-plus-color)
+}
+
+.textEditorChar.charMinus {
+	color: var(--char-minus-color)
+}
+
+.textEditorChar.charPeriod {
+	color: var(--char-period-color)
+}
+
+.textEditorChar.charComma {
+	color: var(--char-comma-color)
+}
+
+.textEditorChar.charBracket {
+	color: var(--char-bracket-color)
+}
+
+.textEditorChar.charArrow {
+	color: var(--char-arrow-color)
+}
+
+.textEditorChar.syntaxWarning > span:first-child {
+	text-decoration: underline 1px wavy var(--char-warning-underline-color);
+	background-color: var(--char-warning-bg-color);
+}
+
+.textEditorChar.syntaxError > span:first-child {
+	text-decoration: underline 1px wavy var(--char-error-underline-color);
+	background-color: var(--char-error-bg-color);
+}
+
