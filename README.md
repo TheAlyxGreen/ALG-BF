@@ -23,8 +23,9 @@ error and prints the type of error in the output box. These errors come in 3 typ
 
 There are some known problems/limitations:
 
-- The maximum amount of loops is low and may cause a problem in some scripts
 - Copy/Paste only work through keyboard shortcuts, not the context menu
+- No settings menu to alter the way the IDE works at all (Maximum loop count, step-through speed, etc).
+- Input is still done by native JS pop-up box
 
 Future versions of this program may address some or all of these problems, but for the time being, this is the best
 Brainfuck IDE I am aware of.
