@@ -52,16 +52,18 @@
 }
 
 #OutputViewToggle {
-	display:       inline-block;
-	position:      absolute;
-	right:         1.25em;
-	width:         1.5em;
-	height:        1.5em;
-	text-align:    center;
-	border-radius: 0.2em;
-	font-weight:   bold;
-	cursor:        pointer;
-	transform:     scaleX(1);
+	display:             inline-block;
+	position:            absolute;
+	right:               1.25em;
+	width:               1.5em;
+	height:              1.5em;
+	text-align:          center;
+	border-radius:       0.2em;
+	font-weight:         bold;
+	cursor:              pointer;
+	transform:           scaleX(1);
+	transition-duration: 0.1s;
+	transition-property: background-color;
 }
 
 #OutputViewToggle:hover {
@@ -90,54 +92,76 @@
 	word-break:       break-all;
 }
 
+#OutputViewConsoleError {
+	display:          block;
+	position:         relative;
+	bottom:           0;
+	background-color: #800;
+	color:            #fff;
+	font-weight:      700;
+	padding:          0.25em;
+	margin-bottom:    0.5em;
+}
+
 #OutputViewMemory {
-	display: inline-block;
-	width:   67%;
+	display:    inline-block;
+	width:      67%;
 	overflow-y: scroll;
-	box-sizing:       border-box;
-	padding: 0.2em;
-	height:           calc(calc(var(--output-view-height) - var(--output-view-header-height)) + 0.2rem);
+	box-sizing: border-box;
+	padding:    0.2em;
+	height:     calc(calc(var(--output-view-height) - var(--output-view-header-height)) + 0.2rem);
 }
 
-.memCell{
-	display: inline-block;
-	width: 3em;
-	height: 3em;
-	position: relative;
-	border: 1px solid #666;
-	border-radius: 0.25em;
-	margin: 0.1em 0.2em;
-	vertical-align: center;
-	overflow: hidden;
+.memCell {
+	display:                inline-block;
+	width:                  3em;
+	height:                 3em;
+	position:               relative;
+	border:                 2px solid #666;
+	border-radius:          0.25em;
+	margin:                 0.1em 0.2em;
+	vertical-align:         center;
+	overflow:               hidden;
+	content-visibility:     auto;
+	contain-intrinsic-size: 1px 3rem;
 }
 
-.memCell-content{
-	display: block;
-	position: absolute;
-	width: 100%;
-	margin: 0;
-	font-size: 0.75em;
+.currentCell {
+	background-color: #69f4;
+	border:           2px solid #657fa6;
+}
+
+.currentCell > span {
+	color: #ccc;
+}
+
+.memCell-content {
+	display:    block;
+	position:   absolute;
+	width:      100%;
+	margin:     0;
+	font-size:  0.75em;
 	text-align: center;
 	box-sizing: border-box;
-	height: 1.33em;
-	color: #999;
+	height:     1.33em;
+	color:      #999;
 }
 
-.memCell-label{
+.memCell-label {
 	background-color: #3338;
-	border-bottom: 1px solid #666;
+	border-bottom:    1px solid #666;
 }
 
-.memCell-int{
-	top: 1.33em;
-	padding-top: 0.07em;
+.memCell-int {
+	top:            1.33em;
+	padding-top:    0.07em;
 	vertical-align: center;
-	color: var(--output-view-font-color);
+	color:          var(--output-view-font-color);
 }
 
-.memCell-char{
-	bottom: 0;
-	padding-top: 0.07em;
+.memCell-char {
+	bottom:           0;
+	padding-top:      0.07em;
 	background-color: #2224;
-	border-top: 1px solid #666;
+	border-top:       1px solid #666;
 }

@@ -1,25 +1,23 @@
 import React from "react";
+import MemoryCell from "./memory-cell";
 
 export type MemoryViewerProps = {
 	memory: number[],
 	maxCells: number,
+	currentCell: number,
 }
 
 export default function MemoryViewer(props: MemoryViewerProps): React.ReactElement {
 
 	let elements: JSX.Element[] = new Array(props.maxCells);
 	for (let i = 0; i < props.maxCells + 1; i++) {
-		elements[i] = <div id={"memCell-" + i} className={"memCell"}>
-			<span id={"memCell-label-" + i} className={"memCell-content memCell-label"}>
-				{i}
-			</span>
-			<span id={"memCell-int-" + i} className={"memCell-content memCell-int"}>
-				{props.memory[i]}
-			</span>
-			<span id={"memCell-char-" + i} className={"memCell-content memCell-char"}>
-				"{String.fromCharCode(props.memory[i])}"
-			</span>
-		</div>
+		let className = "memCell";
+		if (i === props.currentCell) {
+			className = className + " currentCell";
+		}
+		let isCurrentCell = i === props.currentCell;
+		elements[i]       =
+			<MemoryCell key={"memCell-" + i} isCurrentCell={isCurrentCell} index={i} value={props.memory[i]}/>;
 	}
 
 	return (

@@ -1,13 +1,14 @@
-import {textEditorState} from "../text-editor/text-editor-state";
 import {outputViewState} from "./output-view-state";
 import OutputViewToggle from "./output-view-toggle";
-import {compilerState} from "../../compiler/compiler-state";
 import MemoryViewer from "./memory-viewer";
+import React from "react";
+import {machineState} from "../../compiler";
 
 type OutputViewProps = {
-	editorState: textEditorState,
 	outputViewState: outputViewState,
-	vmState: compilerState
+	highestMemoryAddress: number,
+	vmState: machineState
+	isRunning: boolean,
 }
 
 function OutputView(props: OutputViewProps) {
@@ -25,15 +26,25 @@ function OutputView(props: OutputViewProps) {
 			<div id="OutputView">
 				<div id="OutputViewHeader">
 					<span id="OutputViewHeaderTitle">Memory & Output</span>
-					<OutputViewToggle collapsed={false}></OutputViewToggle>
+					<OutputViewToggle collapsed={false}/>
 				</div>
 				<div id="OutputViewContent">
 					<MemoryViewer
-						memory={props.vmState.vm.memory}
-						maxCells={props.vmState.highestMemoryAddress}
-					></MemoryViewer>
+						memory={props.vmState.memory}
+						maxCells={props.highestMemoryAddress}
+						currentCell={props.vmState.cursorPosition}
+					/>
 					<div id="OutputViewConsole">
-						{props.vmState.vm.output}
+						<div id="OutputViewConsoleError"
+						     style={props.vmState.errorCode === "NONE" ? {display: "none"} : {}}
+						>
+							<span id="OutputViewErrorText">
+								{props.vmState.errorCode}<br/>
+								{`Line: ${props.vmState.errorChar.lineNumber}`}<br/>
+								{`Position: ${props.vmState.errorChar.lineIndex}`}
+							</span>
+						</div>
+						{props.vmState.output}
 					</div>
 				</div>
 			</div>
@@ -41,4 +52,8 @@ function OutputView(props: OutputViewProps) {
 	}
 }
 
-export default OutputView;
+export default React.memo(
+	OutputView,
+	(prevProps, nextProps) => {
+		return false;
+	});

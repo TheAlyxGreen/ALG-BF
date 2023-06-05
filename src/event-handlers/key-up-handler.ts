@@ -1,6 +1,4 @@
 import App, {appState} from "../app";
-import compileCode from "../compiler/compile-code";
-import parseCharacterInfo from "../compiler/parse-character-info";
 
 export default function handleKeyUp(this: App, e: KeyboardEvent) {
 	const nextState: appState = this.state;
@@ -22,12 +20,6 @@ export default function handleKeyUp(this: App, e: KeyboardEvent) {
 			break;
 		default:
 			break;
-	}
-	if (Date.now() - nextState.compiler.lastCompiled > 10) {
-		nextState.compiler              = compileCode(parseCharacterInfo(nextState.textEditor.text));
-		nextState.textEditor.characters = nextState.compiler.characters;
-	} else {
-		nextState.textEditor.characters = parseCharacterInfo(nextState.textEditor.text);
 	}
 	this.setState(nextState);
 	let r: HTMLElement = document.querySelector(":root") as HTMLElement;

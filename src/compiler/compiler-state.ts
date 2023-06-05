@@ -1,18 +1,22 @@
-import {machineState, newMachineState} from "./machine-state";
+import newMachineState, {machineState} from "./machine-state";
 import {characterInfo} from "./character-info";
 
 export type compilerState = {
 	characters: characterInfo[],
 	vm: machineState,
-	lastCompiled: number,
 	highestMemoryAddress: number,
+	started: boolean,
+	running: boolean,
+	stepTime: number,
 }
 
-export function newCompilerState(): compilerState {
+export default function newCompilerState(): compilerState {
 	return {
-		characters:   [],
-		vm:           newMachineState(),
-		lastCompiled: 0,
+		characters:           new Array(0),
+		vm:                   newMachineState(),
 		highestMemoryAddress: 0,
+		started:              false,
+		running:              false,
+		stepTime:             50,
 	};
 }

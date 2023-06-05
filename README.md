@@ -10,9 +10,9 @@ editing the React elements accordingly rather than rely upon pre-built text boxe
 wanted to have absolute control over how text was handled and because I have a bad habit of over-complicating things. It
 has the following features:
 
-- It executes your script as you type so you can see the changes in real time
 - It shows both the integer value and character value of each memory cell accessed by the script
 - It highlights syntax and counts each repeated character to make both scripting and reading scripts easier
+- It allows you to step through the code or run it all at once
 
 If it encounters any errors while compiling, it highlights the character that caused the
 error and prints the type of error in the output box. These errors come in 3 types:
@@ -24,8 +24,6 @@ error and prints the type of error in the output box. These errors come in 3 typ
 There are some known problems/limitations:
 
 - The maximum amount of loops is low and may cause a problem in some scripts
-- There is no way to toggle compiling on type and could cause performance issues
-- There is no way to step through instructions one-by-one to troubleshoot
 - Copy/Paste only work through keyboard shortcuts, not the context menu
 
 Future versions of this program may address some or all of these problems, but for the time being, this is the best

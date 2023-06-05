@@ -10,6 +10,7 @@
 	--char-warning-bg-color:                    #fa34;
 	--char-error-underline-color:               #f00;
 	--char-error-bg-color:                      #f004;
+	--char-loop-underline-size:                 2px;
 
 	--line-background-color:                    #181c24;
 	--line-background-color-selected:           #fff1;
@@ -25,7 +26,7 @@
 }
 
 #TextEditor {
-	font-family:                source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+	font-family:                "Source Code Pro", monospace;
 	font-size:                  2rem;
 	top:                        3rem;
 	right:                      0;
@@ -59,7 +60,7 @@
 
 .textEditorLineNumber {
 	display:          inline-block;
-	min-height:       2.5rem;
+	min-height:       2.6rem;
 	height:           100%;
 	margin-right:     0.5ch;
 	padding:          0 0.5ch;
@@ -141,7 +142,6 @@
 	position:       relative;
 	margin:         0;
 	display:        inline-block;
-	font-weight:    300;
 	text-align:     center;
 	min-width:      1.25rem;
 	min-height:     2.5rem;
@@ -152,15 +152,13 @@
 }
 
 .textEditorChar > .textEditorCharSub {
-	display:        block;
-	font-size:      0.2rem;
+	display:        inline-block;
+	font-size:      0.09em;
 	padding:        0;
-	position:       relative;
-	scale:          0.9;
+	position:       absolute;
 	pointer-events: none;
-	margin-top:     -0.6rem;
-	height:         0.7rem;
-	text-align:     right;
+	top:            9em;
+	right:          -1em;
 }
 
 .textEditorChar > span:first-child {
@@ -198,12 +196,60 @@
 }
 
 .textEditorChar.syntaxWarning > span:first-child {
-	text-decoration: underline 1px wavy var(--char-warning-underline-color);
+	text-decoration:  underline 1px wavy var(--char-warning-underline-color);
 	background-color: var(--char-warning-bg-color);
 }
 
 .textEditorChar.syntaxError > span:first-child {
-	text-decoration: underline 1px wavy var(--char-error-underline-color);
+	text-decoration:  underline 1px wavy var(--char-error-underline-color);
 	background-color: var(--char-error-bg-color);
 }
 
+.inLoop {
+	box-sizing: border-box;
+}
+
+.inLoop0 {
+	border-bottom: var(--char-loop-underline-size) dashed #f586;
+}
+
+.inLoop1 {
+	border-bottom: var(--char-loop-underline-size) dashed #f806;
+}
+
+.inLoop2 {
+	border-bottom: var(--char-loop-underline-size) dashed #9f16;
+}
+
+.inLoop3 {
+	border-bottom: var(--char-loop-underline-size) dashed #1cf6;
+}
+
+.currentInstruction {
+	box-sizing: border-box;
+}
+
+.currentInstruction::before {
+	content:                 "step";
+	display:                 inline-block;
+	font-size:               0.1em;
+	width:                   1.5rem;
+	position:                absolute;
+	left:                    0.125rem;
+	height:                  2.5rem;
+	color:                   #55c5ee;
+	padding:                 0;
+	margin:                  0;
+	border:                  0.1rem solid #55c5ee;
+	background-color:        #55c5ee44;
+	box-sizing:              border-box;
+	font-variation-settings: "FILL" 1,
+	                         "wght" 700,
+	                         "GRAD" 0,
+	                         "opsz" 48;
+	font-family:             "Material Symbols Outlined";
+}
+
+.linkedInstruction {
+	background-color: #ccc4;
+}

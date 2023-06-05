@@ -1,6 +1,6 @@
 import App, {appState} from "../app";
-import {getLineStartIndex} from "../components/text-editor";
-import {getLineEndIndex} from "../components/text-editor";
+import {getLineEndIndex, getLineStartIndex} from "../components/text-editor";
+import {newCompilerState, parseCode, runNextInstruction, runWholeScript} from "../compiler";
 
 export default function handleMouseDown(this: App, e: MouseEvent) {
 	let nextState: appState = this.state;
@@ -50,11 +50,31 @@ export default function handleMouseDown(this: App, e: MouseEvent) {
 			nextState.textEditor.cursorStart = getLineEndIndex(nextState.textEditor, lineNumber);
 			nextState.textEditor.cursorEnd   = nextState.textEditor.cursorStart;
 		}
-	} else if ((e.target as HTMLElement).id === "TextEditor") {
+	} else if (id === "TextEditor") {
 		nextState.textEditor.cursorStart = nextState.textEditor.text.length;
 		nextState.textEditor.cursorEnd   = nextState.textEditor.text.length;
-	} else if ((e.target as HTMLElement).id === "OutputViewToggle") {
+	} else if (id === "OutputViewToggle") {
 		nextState.outputView.collapsed = !this.state.outputView.collapsed;
+	} else if (id === "CompileButton") {
+		nextState.compiler.characters = parseCode(nextState.textEditor.text);
+		nextState.compiler            = runWholeScript(nextState.compiler);
+		nextState.compiler.started    = false;
+		nextState.compiler.running    = false;
+	} else if (id === "StepStopButton") {
+		nextState.compiler.running = false;
+		nextState.compiler.started = false;
+	} else if (id === "StepForwardButton") {
+		nextState.compiler = runNextInstruction(this.state.compiler);
+	} else if (id === "StepPauseButton") {
+		nextState.compiler.running = false;
+	} else if (id === "StepResumeButton") {
+		nextState.compiler.running = true;
+	} else if (id === "StepThroughButton") {
+		nextState.compiler            = newCompilerState();
+		nextState.compiler.characters = parseCode(nextState.textEditor.text);
+		nextState.compiler.started    = true;
+		nextState.compiler.running    = true;
 	}
+
 	this.setState(nextState);
 }

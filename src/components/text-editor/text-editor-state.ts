@@ -1,6 +1,4 @@
 import {createRef, RefObject} from "react";
-import {characterInfo} from "../../compiler/character-info";
-import parseCharacterInfo from "../../compiler/parse-character-info";
 
 export type textEditorState = {
 	cursorEnd: number,
@@ -8,7 +6,6 @@ export type textEditorState = {
 	cursorRef: RefObject<HTMLDivElement>
 	cursorStart: number,
 	text: string,
-	characters: characterInfo[],
 	focused: boolean,
 }
 
@@ -22,7 +19,6 @@ export function newTextEditorState(options?: {
 		cursorStart: options?.cursorStart ?? 0,
 		cursorEnd:   options?.cursorEnd ?? 0,
 		cursorRef:   createRef<HTMLDivElement>(),
-		characters:  parseCharacterInfo(options?.startText ?? ""),
 		focused:     true,
 	} as textEditorState;
 }

@@ -13,12 +13,102 @@
 	background-color: #292f3d;
 	box-shadow:       0 -1px 5px #000000ff;
 	z-index:          100;
+	text-align:       center;
+	user-select:      none;
 }
 
 #AppLogo {
+	font-family:    source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 	font-size:      2rem;
 	font-weight:    bold;
 	cursor:         default;
-	user-select:    none;
 	vertical-align: baseline;
+	position:       absolute;
+	left:           0.5em;
+}
+
+#AppHeader > .toolbar {
+	display:         inline-flex;
+	border:          1px solid #181828;
+	margin:          0 0.5em;
+	padding:         0;
+	text-align:      center;
+	vertical-align:  middle;
+	height:          2em;
+	top:             0.5em;
+	box-sizing:      border-box;
+	justify-content: center;
+	align-items:     center;
+	position:        relative;
+	overflow:        hidden;
+	border-radius:   0.25em;
+}
+
+.headerButton {
+	text-align:          center;
+	/*border: 1px solid #111;*/
+	font-size:           1.75em;
+	cursor:              pointer;
+	position:            relative;
+	width:               1.25em;
+	height:              1.25em;
+	display:             inline-flex;
+	vertical-align:      middle;
+	margin:              0;
+	box-sizing:          border-box;
+	justify-content:     center;
+	align-items:         center;
+	--outline-color:     #282828;
+	text-shadow:         -1px 1px 2px var(--outline-color),
+	                     1px 1px 2px var(--outline-color),
+	                     1px -1px 2px var(--outline-color),
+	                     -1px -1px 2px var(--outline-color);
+	transition-property: text-shadow, background-color;
+	transition-duration: 0.1s;
+}
+
+.headerButton:hover {
+	background-color: #212631;
+	--outline-color:  #222;
+	text-shadow:      -1px 1px 4px var(--outline-color),
+	                  1px 1px 4px var(--outline-color),
+	                  1px -1px 4px var(--outline-color),
+	                  -1px -1px 4px var(--outline-color);
+}
+
+#CompileButton {
+	color:                   #66ee55;
+	font-variation-settings: "FILL" 1,
+	                         "wght" 400,
+	                         "GRAD" -25,
+	                         "opsz" 48;
+}
+
+#StepThroughButton {
+	color: #66ee55;
+}
+
+#StepThroughButton > span {
+	transform:      scale(0.75, 0.75);
+	pointer-events: none;
+}
+
+#StepStopButton {
+	color: #ee5555;
+}
+
+#StepResumeButton {
+	color: #9a55ee;
+}
+
+#StepPauseButton {
+	color:                   #eea955;
+	font-variation-settings: "FILL" 1,
+	                         "wght" 400,
+	                         "GRAD" -25,
+	                         "opsz" 40;
+}
+
+#StepForwardButton {
+	color: #55c5ee;
 }

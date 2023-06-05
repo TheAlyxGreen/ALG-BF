@@ -1,4 +1,4 @@
-export type syntaxWarningLevel = "none" | "warning" | "error"
+export type syntaxHighlightLevel = "none" | "warning" | "error"
 
 export type characterInfo = {
 	character: string,
@@ -8,6 +8,8 @@ export type characterInfo = {
 	syntaxWarning: "none" | "warning" | "error",
 	repetitions: number,
 	lastRepetition: boolean,
+	loopDepth: number,
+	linkedInstruction: number,
 }
 
 export function newCharacterInfo(
@@ -15,13 +17,15 @@ export function newCharacterInfo(
 	syntaxWarning?: "none" | "warning" | "error", repetitions?: number, lastRepetition?: boolean,
 ): characterInfo {
 	return {
-		character:      character,
-		absoluteIndex:  index,
-		lineNumber:     lineNumber,
-		lineIndex:      lineIndex,
-		syntaxWarning:  syntaxWarning ?? "none",
-		repetitions:    repetitions ?? 0,
-		lastRepetition: lastRepetition ?? true,
+		character:         character,
+		absoluteIndex:     index,
+		lineNumber:        lineNumber,
+		lineIndex:         lineIndex,
+		syntaxWarning:     syntaxWarning ?? "none",
+		repetitions:       repetitions ?? 0,
+		lastRepetition:    lastRepetition ?? true,
+		loopDepth:         0,
+		linkedInstruction: -1,
 	};
 }
 
@@ -34,13 +38,14 @@ export function charactersAreEqual(first: characterInfo, second: characterInfo):
 
 export function setCharacterWarning(c: characterInfo): characterInfo {
 	let out = c;
-	if (out.syntaxWarning === "none") {
+	if (out.syntaxWarning !== "error") {
 		out.syntaxWarning = "warning";
 	}
 	return out;
 }
+
 export function setCharacterError(c: characterInfo): characterInfo {
-	let out = c;
-	out.syntaxWarning = "error"
+	let out           = c;
+	out.syntaxWarning = "error";
 	return out;
 }

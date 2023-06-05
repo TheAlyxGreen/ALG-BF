@@ -3,18 +3,36 @@ import React, {LegacyRef} from "react";
 import {characterInfo} from "../../compiler/character-info";
 
 type TextEditorLineProps = {
+	// absolute position of the start of the cursor
+	cursorPosition: number,
+	// relative position of the start of the cursor in line or 0
 	cursorStartIndex: number,
+	// line where cursor selection starts
 	cursorStartLine: number,
+	// relative position in line where highlight ends
 	highlightEnd: number,
+	// line where highlight ends
 	highlightEndLine: number,
+	// position in line where highlight starts
 	highlightStart: number,
+	// line where highlight starts
 	highlightStartLine: number,
+	// number of lines
 	lineCount: number,
+	// current line number
 	lineNumber: number,
+	// text of the line
 	lineText: string,
+	// character info for the line
 	lineCharacters: characterInfo[],
+	// absolute index of first character in line
 	lineStartIndex: number,
+	// cursor ref
 	cursorRef: LegacyRef<HTMLDivElement>
+	// index of instruction being compiled in step-through compiler
+	currentInstructionIndex: number,
+	// whether step-through compiler has begun
+	compilerStarted: boolean
 }
 
 function TextEditorLineElement(props: TextEditorLineProps) {
@@ -31,7 +49,6 @@ function TextEditorLineElement(props: TextEditorLineProps) {
 	}
 	const firstCursor           = Math.min(props.highlightStart, props.highlightEnd);
 	const lastCursor            = Math.max(props.highlightStart, props.highlightEnd);
-	let repeatCount             = 0;
 	let elements: JSX.Element[] = props.lineText
 	                                   .split("")
 	                                   .filter(
@@ -42,40 +59,15 @@ function TextEditorLineElement(props: TextEditorLineProps) {
 		                                   },
 	                                   ).map(
 			(char, charIndex) => {
-				let nextChar = "";
-				if (charIndex < props.lineText.length - 1) {
-					nextChar = props.lineText[charIndex + 1];
-				}
-
-				let lastChar = "";
-				if (charIndex > 0) {
-					lastChar = props.lineText[charIndex - 1];
-				}
-				if (char === lastChar) {
-					repeatCount++;
-				} else {
-					repeatCount = 1;
-				}
 
 				let isSelected = false;
 				if (charIndex >= firstCursor && charIndex < lastCursor) {
 					isSelected = true;
 				}
-
-				let compilerInfo = props.lineCharacters[charIndex];
-
-				let info: characterInfo = {
-					syntaxWarning:  compilerInfo.syntaxWarning,
-					character:      char,
-					lineNumber:     props.lineNumber,
-					lineIndex:      charIndex,
-					absoluteIndex:  props.lineStartIndex + charIndex,
-					lastRepetition: nextChar !== char,
-					repetitions:    repeatCount,
-				};
+				let isCurrentInstruction = props.currentInstructionIndex === props.lineCharacters[charIndex].absoluteIndex;
 
 				return <TextEditorCharElement
-					characterInfo={info}
+					characterInfo={props.lineCharacters[charIndex]}
 					isSelected={isSelected}
 					key={`editor-line${
 						props.lineNumber.toString(36)
@@ -84,6 +76,9 @@ function TextEditorLineElement(props: TextEditorLineProps) {
 					}-${
 						char
 					}`}
+					isCompiling={props.compilerStarted}
+					isCurrentInstruction={isCurrentInstruction}
+					cursorPosition={props.cursorPosition}
 				/>;
 			});
 
@@ -150,6 +145,22 @@ export default React.memo(
 			return false;
 		}
 		if ((prevProps.lineCount + "").length !== (nextProps.lineCount + "").length) {
+			return false;
+		}
+		if (prevProps.lineStartIndex !== nextProps.lineStartIndex) {
+			return false;
+		}
+		let compilerOnLinePreviously = (prevProps.currentInstructionIndex > prevProps.lineStartIndex && prevProps.currentInstructionIndex <= prevProps.lineStartIndex + prevProps.lineCharacters.length);
+		let compilerOnLineNext       = (nextProps.currentInstructionIndex > nextProps.lineStartIndex && nextProps.currentInstructionIndex <= prevProps.lineStartIndex + nextProps.lineCharacters.length);
+		if (compilerOnLineNext !== compilerOnLinePreviously) {
+			return false;
+		}
+		if (prevProps.compilerStarted !== nextProps.compilerStarted) {
+			return false;
+		}
+		let wasCompilingLine = prevProps.currentInstructionIndex > prevProps.lineStartIndex - 1 && prevProps.currentInstructionIndex < prevProps.lineStartIndex + prevProps.lineCharacters.length + prevProps.lineNumber;
+		let isCompilingLine  = nextProps.currentInstructionIndex > nextProps.lineStartIndex - 1 && nextProps.currentInstructionIndex < nextProps.lineStartIndex + nextProps.lineCharacters.length + nextProps.lineNumber;
+		if (wasCompilingLine || isCompilingLine) {
 			return false;
 		}
 		return true;

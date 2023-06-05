@@ -13,8 +13,9 @@ import {
 	handleWindowBlur,
 } from "./event-handlers";
 import OutputView, {outputViewState} from "./components/output-view";
-import {compilerState, newCompilerState} from "./compiler/compiler-state";
+import {compilerState, newCompilerState, runNextInstruction} from "./compiler";
 import loadInitialScript from "./load-initial-script";
+import SettingsWindow, {newSettingsState, settingsState} from "./components/settings-window";
 
 export type mouseState = {
 	leftClicked: boolean,
@@ -28,6 +29,7 @@ export type appState = {
 	outputView: outputViewState,
 	mouse: mouseState,
 	compiler: compilerState,
+	settings: settingsState,
 }
 
 export default class App extends React.Component<any, appState> {
@@ -43,13 +45,25 @@ export default class App extends React.Component<any, appState> {
 				clickedElementID: "",
 			},
 			compiler:   newCompilerState(),
+			settings:   newSettingsState(),
 		};
+	timer              = setTimeout(() => {
+	}, 1000);
 
+	CompilerStepperLoop(this: App) {
+		this.timer = setTimeout(this.CompilerStepperLoop.bind(this), this.state.compiler.stepTime);
+		if (this.state.compiler.running) {
+			const nextState    = this.state;
+			nextState.compiler = runNextInstruction(nextState.compiler);
+			this.setState(nextState);
+		}
+	}
 
 	componentDidMount(): void {
 		if (!this.hasLoaded) {
 			this.hasLoaded = true;
-
+			clearTimeout(this.timer);
+			this.timer = setTimeout(this.CompilerStepperLoop.bind(this), 1000);
 			document.addEventListener("keydown", handleKeyDown.bind(this));
 			document.addEventListener("keyup", handleKeyUp.bind(this));
 			document.addEventListener("mousedown", handleMouseDown.bind(this));
@@ -66,16 +80,22 @@ export default class App extends React.Component<any, appState> {
 	render(): React.ReactNode {
 		return (
 			<div id="App">
-				<AppHeader/>
+				<AppHeader
+					isRunning={this.state.compiler.running}
+					isStarted={this.state.compiler.started}
+				/>
 				<TextEditor
 					editorState={this.state.textEditor}
 					outputViewState={this.state.outputView}
+					compilerState={this.state.compiler}
 				/>
 				<OutputView
-					editorState={this.state.textEditor}
 					outputViewState={this.state.outputView}
-					vmState={this.state.compiler}
+					highestMemoryAddress={this.state.compiler.highestMemoryAddress}
+					vmState={this.state.compiler.vm}
+					isRunning={this.state.compiler.running}
 				/>
+				<SettingsWindow state={this.state.settings}/>
 			</div>
 		);
 	}

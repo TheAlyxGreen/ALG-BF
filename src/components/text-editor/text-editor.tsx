@@ -2,19 +2,21 @@ import React from "react";
 import TextEditorLineElement from "./text-editor-line";
 import {getCursorEndPosition, getCursorStartPosition, textEditorState} from "./text-editor-state";
 import {outputViewState} from "../output-view";
-import parseCharacterInfo from "../../compiler/parse-character-info";
+import parseCode from "../../compiler/parse-code";
 import {characterInfo} from "../../compiler/character-info";
+import {compilerState} from "../../compiler/compiler-state";
 
 type TextEditorProps = {
 	editorState: textEditorState,
+	compilerState: compilerState,
 	outputViewState: outputViewState,
 }
 
 function TextEditor(props: TextEditorProps) {
-	let characters = props.editorState.characters;
-	if (props.editorState.text.length !== props.editorState.characters.length) {
+	let characters = props.compilerState.characters;
+	if (props.editorState.text.length !== characters.length) {
 		console.log("char data mismatch");
-		characters = parseCharacterInfo(props.editorState.text);
+		characters = parseCode(props.editorState.text);
 	}
 	let lines = props.editorState.text.split("\n");
 
@@ -76,6 +78,7 @@ function TextEditor(props: TextEditorProps) {
 					}
 
 					return <TextEditorLineElement
+						cursorPosition={cursorStartPosition.index}
 						cursorStartIndex={cursorStartPosition.indexInLine}
 						cursorStartLine={cursorStartPosition.lineNumber}
 						highlightEnd={inlineCursorEndPosition}
@@ -89,6 +92,8 @@ function TextEditor(props: TextEditorProps) {
 						lineCharacters={characterLines[currentLineNumber]}
 						lineStartIndex={lineStartIndex}
 						cursorRef={props.editorState.cursorRef}
+						currentInstructionIndex={props.compilerState.vm.instructionPosition}
+						compilerStarted={props.compilerState.started}
 					/>;
 				},
 			)

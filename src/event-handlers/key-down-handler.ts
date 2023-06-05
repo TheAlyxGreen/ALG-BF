@@ -8,8 +8,7 @@ import {
 	textEditorInsertText,
 	textEditorState,
 } from "../components/text-editor";
-import parseCharacterInfo from "../compiler/parse-character-info";
-import compileCode from "../compiler/compile-code";
+import parseCode from "../compiler/parse-code";
 
 
 export default function handleKeyDown(this: App, e: KeyboardEvent) {
@@ -216,12 +215,8 @@ export default function handleKeyDown(this: App, e: KeyboardEvent) {
 		} else if (nextState.textEditor.cursorEnd < 0) {
 			nextState.textEditor.cursorEnd = 0;
 		}
-		if (Date.now() - nextState.compiler.lastCompiled > 50) {
-			nextState.compiler              = compileCode(parseCharacterInfo(nextState.textEditor.text));
-			nextState.textEditor.characters = nextState.compiler.characters;
-		} else {
-			nextState.textEditor.characters = parseCharacterInfo(nextState.textEditor.text);
-		}
+
+		nextState.compiler.characters = parseCode(nextState.textEditor.text);
 
 		let r: HTMLElement = document.querySelector(":root") as HTMLElement;
 		let lineCount      = nextState.textEditor.text.split("\n").length;

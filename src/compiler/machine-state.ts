@@ -1,14 +1,28 @@
+import {characterInfo, newCharacterInfo} from "./character-info";
+
+export type machineErrors = "NONE" | "LOOP_FAULT" | "MEMORY_FAULT" | "INSTRUCTION_FAULT"
+
 export type machineState = {
+	instructionPosition: number,
 	cursorPosition: number,
 	memory: number[],
 	output: string,
+	loopCount: number,
+	errorCode: machineErrors,
+	errorChar: characterInfo,
+	lastChanged: number,
 }
 
-export function newMachineState(): machineState {
+export default function newMachineState(): machineState {
 	return {
-		cursorPosition: 0,
-		memory:         new Array(65536).fill(0),
-		output:         "",
+		instructionPosition: 0,
+		cursorPosition:      0,
+		memory:              new Array(65536).fill(0),
+		output:              "",
+		loopCount:           0,
+		errorCode:           "NONE",
+		errorChar:           newCharacterInfo("", -1, -1, -1),
+		lastChanged:         0,
 	};
 }
 
@@ -17,7 +31,11 @@ export function incrementMachineMemory(state: machineState, amount?: number) {
 }
 
 export function decrementMachineMemory(state: machineState, amount?: number) {
-	state.memory[state.cursorPosition] = Math.abs((state.memory[state.cursorPosition] - (amount ?? 1)) % 256);
+	let newVal = state.memory[state.cursorPosition] - (amount ?? 1);
+	while (newVal < 0) {
+		newVal = newVal + 256;
+	}
+	state.memory[state.cursorPosition] = newVal % 256;
 }
 
 export function setMachineMemory(state: machineState, value: number) {
