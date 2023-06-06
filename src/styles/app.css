@@ -1,11 +1,9 @@
 body {
-	font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-	             "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-	             sans-serif;
+	font-family:             var(--font-family-sans);
 	width:                   100%;
 	height:                  100%;
 	margin:                  0;
-	background-color:        #13161c;
+	background-color:        var(--bg-color-dark);
 	-webkit-font-smoothing:  antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }

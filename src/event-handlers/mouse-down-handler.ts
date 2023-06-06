@@ -74,6 +74,10 @@ export default function handleMouseDown(this: App, e: MouseEvent) {
 		nextState.compiler.characters = parseCode(nextState.textEditor.text);
 		nextState.compiler.started    = true;
 		nextState.compiler.running    = true;
+	} else if (id === "SettingsButton") {
+		nextState.settings.visible = true;
+	} else if (id === "SettingsWindowCloseButton") {
+		nextState.settings.visible = false;
 	}
 
 	this.setState(nextState);

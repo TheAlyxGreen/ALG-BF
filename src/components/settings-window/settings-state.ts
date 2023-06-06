@@ -4,6 +4,6 @@ export type settingsState = {
 
 export default function newSettingsState(): settingsState {
 	return {
-		visible: true,
+		visible: false,
 	};
 }

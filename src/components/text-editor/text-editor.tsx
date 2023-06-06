@@ -3,8 +3,7 @@ import TextEditorLineElement from "./text-editor-line";
 import {getCursorEndPosition, getCursorStartPosition, textEditorState} from "./text-editor-state";
 import {outputViewState} from "../output-view";
 import parseCode from "../../compiler/parse-code";
-import {characterInfo} from "../../compiler/character-info";
-import {compilerState} from "../../compiler/compiler-state";
+import {characterInfo, compilerState} from "../../compiler";
 
 type TextEditorProps = {
 	editorState: textEditorState,

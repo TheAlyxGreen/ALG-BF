@@ -1,0 +1,20 @@
+:root {
+	--bg-color-light:          #23262b;
+	--bg-color-medium:         #202124;
+	--bg-color-dark:           #13161c;
+
+	--font-color-light:        #aaa;
+	--font-family-code:        "Source Code Pro", Menlo, Monaco, Consolas, "Courier New", monospace;
+	--font-family-sans:        "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+	                           "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+	                           sans-serif;
+
+	--font-size-large:         24pt;
+	--font-size-medium:        18pt;
+
+	--ui-header-color:         #292f3d;
+	--ui-box-shadow:           0 1px 5px #00000044;
+	--ui-button-hover-color:   #212631;
+	--ui-button-border-radius: 0.2em;
+	--ui-window-border-radius: 1em;
+}

@@ -2,7 +2,6 @@
 	--output-view-font-color:    #aaa;
 	--output-view-font-size:     24pt;
 	--output-view-height:        10em;
-	--output-view-bg-color:      #23262b;
 
 	--output-view-header-height: 1.5em;
 }
@@ -14,9 +13,9 @@
 	position:            fixed;
 	bottom:              0;
 	left:                0;
-	background-color:    var(--output-view-bg-color);
-	color:               var(--output-view-font-color);
-	font-size:           var(--output-view-font-size);
+	background-color:    var(--bg-color-light);
+	color:               var(--font-color-light);
+	font-size:           var(--font-size-large);
 	box-sizing:          border-box;
 	padding:             0;
 	margin:              0;
@@ -35,11 +34,11 @@
 	display:          block;
 	position:         relative;
 	top:              0;
-	background-color: #292f3d;
+	background-color: var(--ui-header-color);
 	width:            100%;
 	font-size:        1.2rem;
 	padding:          0.5rem 0 0.5rem 1rem;
-	box-shadow:       0 1px 5px #00000044;
+	box-shadow:       var(--ui-box-shadow);
 	height:           var(--output-view-header-height);
 }
 
@@ -58,7 +57,7 @@
 	width:               1.5em;
 	height:              1.5em;
 	text-align:          center;
-	border-radius:       0.2em;
+	border-radius:       var(--ui-button-border-radius);
 	font-weight:         bold;
 	cursor:              pointer;
 	transform:           scaleX(1);
@@ -67,13 +66,13 @@
 }
 
 #OutputViewToggle:hover {
-	background-color: #212631;
+	background-color: var(--ui-button-hover-color);
 }
 
 #OutputViewContent {
 	width:       100%;
 	height:      100%;
-	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+	font-family: var(--font-family-code);
 }
 
 #OutputViewConsole {
@@ -83,7 +82,7 @@
 	position:         absolute;
 	left:             67%;
 	box-shadow:       inset 0 1px 5px #00000088;
-	background-color: #202124;
+	background-color: var(--bg-color-medium);
 	padding:          0.5rem 1rem;
 	box-sizing:       border-box;
 	overflow-y:       scroll;

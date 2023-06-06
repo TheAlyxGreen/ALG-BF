@@ -8,14 +8,15 @@ export default function SettingsWindow(props: SettingsWindowProps): React.ReactE
 	if (!props.state.visible) {
 		return <div id="SettingsWindow" style={{display: "none"}}></div>;
 	}
-	return <div id="SettingsWindow">
-		<div id="SettingsWindowHeader">
-			<span id="SettingsWindowTitle">Settings</span>
-			<span id="SettingsWindowCloseButton">X</span>
-		</div>
-		<div id="SettingsWindowBody">
-			<div id="SettingsWindowLeftPane"></div>
-			<div id="SettingsWindowContent"></div>
+	return <div id="SettingsBackdrop">
+		<div id="SettingsWindow">
+			<div id="SettingsWindowHeader">
+				<span id="SettingsWindowTitle">Settings</span>
+				<span id="SettingsWindowCloseButton" className="material-symbols-outlined"><span>close</span></span>
+			</div>
+			<div id="SettingsWindowBody">
+				<div id="SettingsWindowContent">Coming Soon</div>
+			</div>
 		</div>
 	</div>;
 }

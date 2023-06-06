@@ -1,6 +1,6 @@
 import TextEditorCharElement from "./text-editor-char";
 import React, {LegacyRef} from "react";
-import {characterInfo} from "../../compiler/character-info";
+import {characterInfo} from "../../compiler";
 
 type TextEditorLineProps = {
 	// absolute position of the start of the cursor

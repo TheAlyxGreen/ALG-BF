@@ -11,20 +11,29 @@ function AppHeader(props: AppHeaderProps) {
 	if (!props.isRunning) {
 		pauseButton = <span id="StepResumeButton" className={headerClasses} title="Resume running code">resume</span>;
 	}
+	let stepToolbarClass = "toolbar";
+	if (props.isStarted) {
+		stepToolbarClass = stepToolbarClass + " isStepping";
+	}
 
 	return (
 		<header id="AppHeader">
 			<span id="AppLogo" className="code">[ALG:BF]</span>
-			<div id="CompileToolbar" className="toolbar">
-				<span id="CompileButton" className={headerClasses} title="Run code">play_arrow</span>
-				<span id="StepThroughButton" className={headerClasses} title="Step through code">
+			<div id="HeaderToolbarContainer">
+				<div id="CompileToolbar" className="toolbar">
+					<span id="CompileButton" className={headerClasses} title="Run code">play_arrow</span>
+					<span id="StepThroughButton" className={headerClasses} title="Step through code">
 					<span>slow_motion_video</span>
 				</span>
-			</div>
-			<div id="StepToolbar" className="toolbar" style={{display: props.isStarted ? "" : "none"}}>
-				<span id="StepStopButton" className={headerClasses} title="Stop stepping through code">stop</span>
-				{pauseButton}
-				<span id="StepForwardButton" className={headerClasses} title="Run next instruction">step</span>
+				</div>
+				<div id="StepToolbar" className={stepToolbarClass}>
+					<span id="StepStopButton" className={headerClasses} title="Stop stepping through code">stop</span>
+					{pauseButton}
+					<span id="StepForwardButton" className={headerClasses} title="Run next instruction">step</span>
+				</div>
+				<div id="SettingsToolbar" className="toolbar">
+					<span id="SettingsButton" className={headerClasses} title="Settings"><span>settings</span></span>
+				</div>
 			</div>
 		</header>
 	);

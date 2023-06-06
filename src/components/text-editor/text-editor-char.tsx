@@ -1,5 +1,5 @@
 import React from "react";
-import {characterInfo, charactersAreEqual} from "../../compiler/character-info";
+import {characterInfo, charactersAreEqual} from "../../compiler";
 import {isCharBfOperator} from "../../characters";
 
 type TextEditorCharProps = {
@@ -71,7 +71,7 @@ function TextEditorCharElement(props: TextEditorCharProps) {
 	return <div
 		className={charClassName}
 		id={`textEditorChar-${props.characterInfo.lineNumber}-${props.characterInfo.lineIndex}`}
-		char-index={props.characterInfo.absoluteIndex}
+		data-char-index={props.characterInfo.absoluteIndex}
 	>
 		<span>{value}</span>
 		{ // show a subscript if there needs to be one

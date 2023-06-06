@@ -26,7 +26,7 @@
 }
 
 #TextEditor {
-	font-family:                "Source Code Pro", monospace;
+	font-family:                var(--font-family-code);
 	font-size:                  2rem;
 	top:                        3rem;
 	right:                      0;
