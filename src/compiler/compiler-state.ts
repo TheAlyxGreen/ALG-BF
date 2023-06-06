@@ -8,6 +8,7 @@ export type compilerState = {
 	started: boolean,
 	running: boolean,
 	stepTime: number,
+	maxLoopCount: number,
 }
 
 export default function newCompilerState(): compilerState {
@@ -18,5 +19,6 @@ export default function newCompilerState(): compilerState {
 		started:              false,
 		running:              false,
 		stepTime:             50,
+		maxLoopCount:         1000,
 	};
 }

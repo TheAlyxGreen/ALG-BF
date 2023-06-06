@@ -43,6 +43,9 @@ function TextEditor(props: TextEditorProps) {
 		firstCursor = cursorEndPosition;
 		lastCursor  = cursorStartPosition;
 	}
+
+	let cursorChar = characters[cursorStartPosition.index];
+
 	let index      = 0;
 	let classNames = "";
 	if (!props.outputViewState.collapsed) {
@@ -77,6 +80,14 @@ function TextEditor(props: TextEditorProps) {
 						inlineCursorEndPosition = line.length;
 					}
 
+					let hasLinkedChar = false;
+					if (characterLines[currentLineNumber]?.length > 0) {
+						hasLinkedChar =
+							lineStartIndex < cursorChar?.linkedInstruction &&
+							(lineStartIndex + (characterLines[currentLineNumber]?.length ?? 0) + currentLineNumber) >
+							cursorChar.linkedInstruction;
+					}
+
 					return <TextEditorLineElement
 						cursorPosition={cursorStartPosition.index}
 						cursorStartIndex={cursorStartPosition.indexInLine}
@@ -94,6 +105,7 @@ function TextEditor(props: TextEditorProps) {
 						cursorRef={props.editorState.cursorRef}
 						currentInstructionIndex={props.compilerState.vm.instructionPosition}
 						compilerStarted={props.compilerState.started}
+						hasLinkedChar={hasLinkedChar}
 					/>;
 				},
 			)

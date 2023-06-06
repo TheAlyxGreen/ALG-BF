@@ -13,8 +13,6 @@ export default function runNextInstruction(initialState: compilerState): compile
 	const nextState    = initialState;
 	nextState.stepTime = initialState.stepTime + (Math.round(Math.random() * 2) - 1);
 
-	nextState.vm.lastChanged = Date.now();
-
 	let i = initialState.vm.instructionPosition;
 
 	if (i >= instructions.length) {

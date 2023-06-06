@@ -10,7 +10,6 @@ export type machineState = {
 	loopCount: number,
 	errorCode: machineErrors,
 	errorChar: characterInfo,
-	lastChanged: number,
 }
 
 export default function newMachineState(): machineState {
@@ -22,7 +21,6 @@ export default function newMachineState(): machineState {
 		loopCount:           0,
 		errorCode:           "NONE",
 		errorChar:           newCharacterInfo("", -1, -1, -1),
-		lastChanged:         0,
 	};
 }
 

@@ -32,7 +32,9 @@ type TextEditorLineProps = {
 	// index of instruction being compiled in step-through compiler
 	currentInstructionIndex: number,
 	// whether step-through compiler has begun
-	compilerStarted: boolean
+	compilerStarted: boolean,
+	// if there is a linked loop symbol
+	hasLinkedChar: boolean,
 }
 
 function TextEditorLineElement(props: TextEditorLineProps) {
@@ -65,6 +67,19 @@ function TextEditorLineElement(props: TextEditorLineProps) {
 					isSelected = true;
 				}
 				let isCurrentInstruction = props.currentInstructionIndex === props.lineCharacters[charIndex].absoluteIndex;
+				let isLinkedInstruction  = false;
+
+				if (props.lineCharacters[charIndex].linkedInstruction !== -1) {
+					if (
+						props.cursorPosition === props.lineCharacters[charIndex].linkedInstruction
+					) {
+						isLinkedInstruction = true;
+					} else if (
+						props.cursorPosition === props.lineCharacters[charIndex].absoluteIndex
+					) {
+						isLinkedInstruction = true;
+					}
+				}
 
 				return <TextEditorCharElement
 					characterInfo={props.lineCharacters[charIndex]}
@@ -79,6 +94,7 @@ function TextEditorLineElement(props: TextEditorLineProps) {
 					isCompiling={props.compilerStarted}
 					isCurrentInstruction={isCurrentInstruction}
 					cursorPosition={props.cursorPosition}
+					isLinkedInstruction={isLinkedInstruction}
 				/>;
 			});
 
@@ -99,6 +115,10 @@ function TextEditorLineElement(props: TextEditorLineProps) {
 		className={lineClasses}
 		id={`textEditorLine-${props.lineNumber}-0`}
 		ref={props.cursorStartLine === props.lineNumber ? props.cursorRef : undefined}
+		data-linked={props.hasLinkedChar}
+		data-startIndex={props.lineStartIndex}
+		data-endIndex={props.lineStartIndex}
+		data-cursorIndex={props.cursorPosition}
 	>
 		<div
 			key={`lineNumber-${props.lineNumber}`}
@@ -110,7 +130,9 @@ function TextEditorLineElement(props: TextEditorLineProps) {
 		<div
 			className={"textEditorLineContent"}
 			id={`textEditorLineContent-${props.lineNumber}-0`}
-		>{elements}</div>
+		>
+			{elements}
+		</div>
 	</div>;
 }
 
@@ -161,6 +183,9 @@ export default React.memo(
 		let wasCompilingLine = prevProps.currentInstructionIndex > prevProps.lineStartIndex - 1 && prevProps.currentInstructionIndex < prevProps.lineStartIndex + prevProps.lineCharacters.length + prevProps.lineNumber;
 		let isCompilingLine  = nextProps.currentInstructionIndex > nextProps.lineStartIndex - 1 && nextProps.currentInstructionIndex < nextProps.lineStartIndex + nextProps.lineCharacters.length + nextProps.lineNumber;
 		if (wasCompilingLine || isCompilingLine) {
+			return false;
+		}
+		if (prevProps.hasLinkedChar || nextProps.hasLinkedChar) {
 			return false;
 		}
 		return true;
