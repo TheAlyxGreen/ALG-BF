@@ -26,7 +26,9 @@ export default function handleKeyDown(this: App, e: KeyboardEvent) {
 	);
 	if (isCharPrintSafe(e.key) && !e.ctrlKey && !e.altKey) {
 		if (this.state.textEditor.focused) {
-			nextState.textEditor = textEditorInsertText(nextState.textEditor, e.key);
+			nextState.compiler.running = false;
+			nextState.compiler.started = false;
+			nextState.textEditor       = textEditorInsertText(nextState.textEditor, e.key);
 		}
 	} else {
 		if (this.state.textEditor.focused) {

@@ -77,6 +77,10 @@ export default class App extends React.Component<any, appState> {
 		loadInitialScript.bind((this))();
 	}
 
+	getSetState(this: App) {
+		return this.setState;
+	}
+
 	render(): React.ReactNode {
 		return (
 			<div id="App">
@@ -95,7 +99,10 @@ export default class App extends React.Component<any, appState> {
 					vmState={this.state.compiler.vm}
 					isRunning={this.state.compiler.running}
 				/>
-				<SettingsWindow state={this.state.settings}/>
+				<SettingsWindow
+					settingsState={this.state.settings}
+					compilerState={this.state.compiler}
+				/>
 			</div>
 		);
 	}

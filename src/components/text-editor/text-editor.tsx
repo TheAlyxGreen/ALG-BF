@@ -103,6 +103,7 @@ function TextEditor(props: TextEditorProps) {
 						lineStartIndex={lineStartIndex}
 						cursorRef={props.editorState.cursorRef}
 						currentInstructionIndex={props.compilerState.vm.instructionPosition}
+						lastInstructionIndex={props.compilerState.vm.lastInstructionPosition}
 						compilerStarted={props.compilerState.started}
 						hasLinkedChar={hasLinkedChar}
 					/>;

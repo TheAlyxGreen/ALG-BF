@@ -4,6 +4,7 @@ export type machineErrors = "NONE" | "LOOP_FAULT" | "MEMORY_FAULT" | "INSTRUCTIO
 
 export type machineState = {
 	instructionPosition: number,
+	lastInstructionPosition: number,
 	cursorPosition: number,
 	memory: number[],
 	output: string,
@@ -14,13 +15,14 @@ export type machineState = {
 
 export default function newMachineState(): machineState {
 	return {
-		instructionPosition: 0,
-		cursorPosition:      0,
-		memory:              new Array(65536).fill(0),
-		output:              "",
-		loopCount:           0,
-		errorCode:           "NONE",
-		errorChar:           newCharacterInfo("", -1, -1, -1),
+		instructionPosition:     0,
+		lastInstructionPosition: -1,
+		cursorPosition:          0,
+		memory:                  new Array(65536).fill(0),
+		output:                  "",
+		loopCount:               0,
+		errorCode:               "NONE",
+		errorChar:               newCharacterInfo("", -1, -1, -1),
 	};
 }
 

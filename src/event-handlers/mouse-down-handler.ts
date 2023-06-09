@@ -70,13 +70,29 @@ export default function handleMouseDown(this: App, e: MouseEvent) {
 	} else if (id === "StepResumeButton") {
 		nextState.compiler.running = true;
 	} else if (id === "StepThroughButton") {
-		nextState.compiler            = newCompilerState();
+		nextState.compiler            = newCompilerState(nextState.compiler.maxLoopCount, nextState.compiler.stepTime);
 		nextState.compiler.characters = parseCode(nextState.textEditor.text);
 		nextState.compiler.started    = true;
 		nextState.compiler.running    = true;
 	} else if (id === "SettingsButton") {
 		nextState.settings.visible = true;
 	} else if (id === "SettingsWindowCloseButton") {
+		nextState.settings.visible = false;
+	} else if (id === "SettingsWindowApply") {
+		let stepSpeed = document.getElementById("step-speed");
+		if (stepSpeed != null) {
+			let val = parseInt((stepSpeed as HTMLInputElement).value);
+			if (val >= 50 && val <= 1000) {
+				nextState.compiler.stepTime = parseInt((stepSpeed as HTMLInputElement).value);
+			}
+		}
+		let maxLoops = document.getElementById("max-loops");
+		if (maxLoops != null) {
+			let val = parseInt((maxLoops as HTMLInputElement).value);
+			if (val >= 1000 && val <= 999999999) {
+				nextState.compiler.maxLoopCount = parseInt((maxLoops as HTMLInputElement).value);
+			}
+		}
 		nextState.settings.visible = false;
 	}
 

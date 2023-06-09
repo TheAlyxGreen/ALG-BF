@@ -9,9 +9,9 @@ import {
 import {isCharBfOperator} from "../characters";
 
 export default function runNextInstruction(initialState: compilerState): compilerState {
-	let instructions   = initialState.characters;
-	const nextState    = initialState;
-	nextState.stepTime = initialState.stepTime + (Math.round(Math.random() * 2) - 1);
+	let instructions                     = initialState.characters;
+	const nextState                      = initialState;
+	nextState.vm.lastInstructionPosition = nextState.vm.instructionPosition;
 
 	let i = initialState.vm.instructionPosition;
 

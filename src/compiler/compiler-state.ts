@@ -11,14 +11,28 @@ export type compilerState = {
 	maxLoopCount: number,
 }
 
-export default function newCompilerState(): compilerState {
+export default function newCompilerState(maxLoopCount?: number, stepTime?: number): compilerState {
+	let newStepTime = stepTime ?? 50;
+	if (newStepTime < 50) {
+		newStepTime = 50;
+	}
+	if (newStepTime > 1000) {
+		newStepTime = 1000;
+	}
+	let newLoopCount = maxLoopCount ?? 50;
+	if (newLoopCount < 1000) {
+		newLoopCount = 1000;
+	}
+	if (newLoopCount > 999999999) {
+		newLoopCount = 999999999;
+	}
 	return {
 		characters:           new Array(0),
 		vm:                   newMachineState(),
 		highestMemoryAddress: 0,
 		started:              false,
 		running:              false,
-		stepTime:             50,
-		maxLoopCount:         1000,
+		stepTime:             newStepTime,
+		maxLoopCount:         maxLoopCount ?? 1000,
 	};
 }

@@ -1,9 +1,13 @@
 :root {
+	--app-header-height:       3rem;
+
 	--bg-color-light:          #23262b;
 	--bg-color-medium:         #202124;
 	--bg-color-dark:           #13161c;
 
-	--font-color-light:        #aaa;
+	--font-color-light:        #fff;
+	--font-color-medium:       #aaa;
+	--font-color-dark:         #888;
 	--font-family-code:        "Source Code Pro", Menlo, Monaco, Consolas, "Courier New", monospace;
 	--font-family-sans:        "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
 	                           "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -15,6 +19,12 @@
 	--ui-header-color:         #292f3d;
 	--ui-box-shadow:           0 1px 5px #00000044;
 	--ui-button-hover-color:   #212631;
-	--ui-button-border-radius: 0.2em;
-	--ui-window-border-radius: 1em;
+
+	--ui-border-radius-small:  0.2em;
+	--ui-border-radius-medium: 0.5em;
+	--ui-border-radius-large:  1em;
+
+	--ui-border-color-light:   #666;
+	--ui-border-color-medium:  #444;
+	--ui-border-color-dark:    #181818;
 }

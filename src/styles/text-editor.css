@@ -145,6 +145,7 @@
 	text-align:     center;
 	min-width:      1.25rem;
 	min-height:     2.5rem;
+	box-sizing:     border-box;
 }
 
 .textEditorChar.selected {
@@ -225,10 +226,6 @@
 	border-bottom: var(--char-loop-underline-size) dashed #1cf6;
 }
 
-.currentInstruction {
-	box-sizing: border-box;
-}
-
 .currentInstruction::before {
 	content:                 "step";
 	display:                 inline-block;
@@ -242,6 +239,27 @@
 	margin:                  0;
 	border:                  0.1rem solid #55c5ee;
 	background-color:        #55c5ee44;
+	box-sizing:              border-box;
+	font-variation-settings: "FILL" 1,
+	                         "wght" 700,
+	                         "GRAD" 0,
+	                         "opsz" 48;
+	font-family:             "Material Symbols Outlined";
+}
+
+.lastInstruction::before {
+	content:                 " ";
+	display:                 inline-block;
+	font-size:               0.1em;
+	width:                   1.5rem;
+	position:                absolute;
+	left:                    0.125rem;
+	height:                  2.5rem;
+	color:                   #eea955;
+	padding:                 0;
+	margin:                  0;
+	border:                  0.1rem solid #eeb355;
+	background-color:        rgba(238, 169, 85, 0.27);
 	box-sizing:              border-box;
 	font-variation-settings: "FILL" 1,
 	                         "wght" 700,

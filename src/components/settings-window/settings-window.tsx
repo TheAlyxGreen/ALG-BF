@@ -1,11 +1,16 @@
 import React from "react";
 import {settingsState} from "./settings-state";
+import SettingsGroup from "./settings-group";
+import Setting from "./setting";
+import {compilerState} from "../../compiler";
 
 type SettingsWindowProps = {
-	state: settingsState
+	settingsState: settingsState
+	compilerState: compilerState
 }
-export default function SettingsWindow(props: SettingsWindowProps): React.ReactElement {
-	if (!props.state.visible) {
+
+function SettingsWindow(props: SettingsWindowProps): React.ReactElement {
+	if (!props.settingsState.visible) {
 		return <div id="SettingsWindow" style={{display: "none"}}></div>;
 	}
 	return <div id="SettingsBackdrop">
@@ -15,8 +20,47 @@ export default function SettingsWindow(props: SettingsWindowProps): React.ReactE
 				<span id="SettingsWindowCloseButton" className="material-symbols-outlined"><span>close</span></span>
 			</div>
 			<div id="SettingsWindowBody">
-				<div id="SettingsWindowContent">Coming Soon</div>
+				<div id="SettingsWindowContent">
+					<SettingsGroup title={"Performance"}>
+						<Setting
+							id={"step-speed"}
+							label={"Time Between Steps (ms)"}
+							type={"number"}
+							min={50}
+							max={1000}
+							placeholder={"" + props.compilerState.stepTime}
+						/>
+						<Setting
+							id={"max-loops"}
+							label={"Maximum Loop Depth"}
+							type={"number"}
+							min={1000}
+							max={999999999}
+							placeholder={"" + props.compilerState.maxLoopCount}
+						/>
+					</SettingsGroup>
+					<br/>
+					<span>More coming soon...</span>
+					<div id="SettingsWindowBottom">
+						<input id="SettingsWindowApply" type="button" value="Apply"/>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>;
 }
+
+export default React.memo(
+	SettingsWindow,
+	(prevProps, nextProps) => {
+		if (prevProps.settingsState.visible !== nextProps.settingsState.visible) {
+			return true;
+		} else if (prevProps.compilerState.stepTime !== nextProps.compilerState.stepTime) {
+			return false;
+		} else if (prevProps.compilerState.maxLoopCount !== nextProps.compilerState.maxLoopCount) {
+			return false;
+		}
+
+		return false;
+	},
+);

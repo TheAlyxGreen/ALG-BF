@@ -7,6 +7,7 @@ type TextEditorCharProps = {
 	isSelected: boolean,
 	isCompiling: boolean,
 	isCurrentInstruction: boolean,
+	isLastInstruction: boolean,
 	cursorPosition: number,
 	isLinkedInstruction: boolean,
 }
@@ -64,6 +65,10 @@ function TextEditorCharElement(props: TextEditorCharProps) {
 		charClassName = charClassName + " currentInstruction";
 	}
 
+	if (props.isCompiling && props.isLastInstruction) {
+		charClassName = charClassName + " lastInstruction";
+	}
+
 	if (props.isLinkedInstruction) {
 		charClassName = charClassName + " linkedInstruction";
 	}
@@ -95,6 +100,9 @@ export default React.memo(
 			return false;
 		}
 		if (prevProps.isCurrentInstruction !== nextProps.isCurrentInstruction) {
+			return false;
+		}
+		if (prevProps.isLastInstruction !== nextProps.isLastInstruction) {
 			return false;
 		}
 		return charactersAreEqual(prevProps.characterInfo, nextProps.characterInfo);
