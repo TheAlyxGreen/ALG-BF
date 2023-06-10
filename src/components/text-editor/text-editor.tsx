@@ -53,6 +53,9 @@ function TextEditor(props: TextEditorProps) {
 	if (!props.editorState.focused) {
 		classNames = classNames + " unfocused";
 	}
+	if (props.compilerState.started) {
+		classNames = classNames + " running";
+	}
 	return <div id="TextEditor" tabIndex={0} className={classNames}>
 		{
 			lines.map(

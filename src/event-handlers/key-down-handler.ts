@@ -9,6 +9,7 @@ import {
 	textEditorState,
 } from "../components/text-editor";
 import parseCode from "../compiler/parse-code";
+import {newCompilerState, runWholeScript} from "../compiler";
 
 
 export default function handleKeyDown(this: App, e: KeyboardEvent) {
@@ -24,14 +25,13 @@ export default function handleKeyDown(this: App, e: KeyboardEvent) {
 		this.state.textEditor.cursorStart,
 		this.state.textEditor.cursorEnd,
 	);
-	if (isCharPrintSafe(e.key) && !e.ctrlKey && !e.altKey) {
-		if (this.state.textEditor.focused) {
+
+	if (this.state.textEditor.focused) {
+		if (isCharPrintSafe(e.key) && !e.ctrlKey && !e.altKey) {
 			nextState.compiler.running = false;
 			nextState.compiler.started = false;
 			nextState.textEditor       = textEditorInsertText(nextState.textEditor, e.key);
-		}
-	} else {
-		if (this.state.textEditor.focused) {
+		} else {
 			switch (e.key) {
 				case "Alt":
 					break;
@@ -42,6 +42,8 @@ export default function handleKeyDown(this: App, e: KeyboardEvent) {
 					break;
 				case "Tab":
 					e.preventDefault();
+					nextState.compiler.running = false;
+					nextState.compiler.started = false;
 					if (startCursorInfo.index === endCursorInfo.index) {
 						nextState.textEditor           = textEditorInsertText(nextState.textEditor, "    ");
 						nextState.textEditor.cursorStart += 3;
@@ -55,9 +57,15 @@ export default function handleKeyDown(this: App, e: KeyboardEvent) {
 					}
 					break;
 				case "Enter":
-					nextState.textEditor = textEditorInsertText(nextState.textEditor, "\n");
+					if (!e.ctrlKey) {
+						nextState.textEditor       = textEditorInsertText(nextState.textEditor, "\n");
+						nextState.compiler.running = false;
+						nextState.compiler.started = false;
+					}
 					break;
 				case "Backspace":
+					nextState.compiler.running = false;
+					nextState.compiler.started = false;
 					if (firstCursor === lastCursor) {
 						firstCursor = Math.max(firstCursor - 1, 0);
 					}
@@ -70,6 +78,8 @@ export default function handleKeyDown(this: App, e: KeyboardEvent) {
 					nextState.textEditor.cursorEnd   = firstCursor;
 					break;
 				case "Delete":
+					nextState.compiler.running = false;
+					nextState.compiler.started = false;
 					if (firstCursor === lastCursor) {
 						lastCursor = Math.min(firstCursor + 1, nextState.textEditor.text.length);
 					}
@@ -199,6 +209,30 @@ export default function handleKeyDown(this: App, e: KeyboardEvent) {
 					break;
 			}
 		}
+	} else {
+		switch (e.key) {
+			case " ":
+				if (nextState.compiler.started) {
+					nextState.compiler.running = !nextState.compiler.running;
+				}
+				break;
+		}
+	}
+	switch (e.key) {
+		case "Enter":
+			if (e.ctrlKey && !e.shiftKey) {
+				nextState.compiler.characters = parseCode(nextState.textEditor.text);
+				nextState.compiler            = runWholeScript(nextState.compiler);
+				nextState.compiler.started    = false;
+				nextState.compiler.running    = false;
+			} else if (e.ctrlKey && e.shiftKey) {
+				nextState.compiler            = newCompilerState(nextState.compiler.maxLoopCount, nextState.compiler.stepTime);
+				nextState.compiler.characters = parseCode(nextState.textEditor.text);
+				nextState.compiler.started    = true;
+				nextState.compiler.running    = true;
+				nextState.textEditor.focused  = false;
+			}
+			break;
 	}
 
 	if (this.state.textEditor.focused) {

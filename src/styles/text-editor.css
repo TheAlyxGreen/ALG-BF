@@ -44,6 +44,11 @@
 	transition-timing-function: ease-out;
 }
 
+#TextEditor.running {
+	background-color: #13161c;
+	background:       repeating-linear-gradient(-45deg, #202124cc, #202124cc 1em, #13161c 1em, #13161c 2em);
+}
+
 #TextEditor.outputViewVisible {
 	height: calc(100% - calc(var(--app-header-height) + var(--output-view-height)));
 }
