@@ -5,9 +5,10 @@ export type MemoryViewerProps = {
 	memory: number[],
 	maxCells: number,
 	currentCell: number,
+	lastIncrement: number,
 }
 
-export default function MemoryViewer(props: MemoryViewerProps): React.ReactElement {
+function MemoryViewer(props: MemoryViewerProps): React.ReactElement {
 
 	let elements: JSX.Element[] = new Array(props.maxCells);
 	for (let i = 0; i < props.maxCells + 1; i++) {
@@ -26,3 +27,18 @@ export default function MemoryViewer(props: MemoryViewerProps): React.ReactEleme
 		</div>
 	);
 }
+
+export default React.memo(
+	MemoryViewer,
+	(prevProps, nextProps) => {
+		if (prevProps.maxCells !== nextProps.maxCells) {
+			return false;
+		} else if (prevProps.currentCell !== nextProps.currentCell) {
+			return false;
+		}
+		if (prevProps.lastIncrement !== nextProps.lastIncrement) {
+			return false;
+		}
+		return true;
+	},
+);

@@ -11,6 +11,7 @@ export type machineState = {
 	loopCount: number,
 	errorCode: machineErrors,
 	errorChar: characterInfo,
+	lastIncrement: number,
 }
 
 export default function newMachineState(): machineState {
@@ -23,11 +24,13 @@ export default function newMachineState(): machineState {
 		loopCount:               0,
 		errorCode:               "NONE",
 		errorChar:               newCharacterInfo("", -1, -1, -1),
+		lastIncrement:           0,
 	};
 }
 
 export function incrementMachineMemory(state: machineState, amount?: number) {
 	state.memory[state.cursorPosition] = Math.abs((state.memory[state.cursorPosition] + (amount ?? 1)) % 256);
+	state.lastIncrement                = Date.now();
 }
 
 export function decrementMachineMemory(state: machineState, amount?: number) {
@@ -36,6 +39,7 @@ export function decrementMachineMemory(state: machineState, amount?: number) {
 		newVal = newVal + 256;
 	}
 	state.memory[state.cursorPosition] = newVal % 256;
+	state.lastIncrement                = Date.now();
 }
 
 export function setMachineMemory(state: machineState, value: number) {

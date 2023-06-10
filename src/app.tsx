@@ -94,10 +94,12 @@ export default class App extends React.Component<any, appState> {
 					compilerState={this.state.compiler}
 				/>
 				<OutputView
-					outputViewState={this.state.outputView}
 					highestMemoryAddress={this.state.compiler.highestMemoryAddress}
 					vmState={this.state.compiler.vm}
 					isRunning={this.state.compiler.running}
+					collapsed={this.state.outputView.collapsed}
+					lastIncrement={this.state.compiler.vm.lastIncrement}
+					consoleOutput={this.state.compiler.vm.output}
 				/>
 				<SettingsWindow
 					settingsState={this.state.settings}

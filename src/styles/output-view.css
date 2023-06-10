@@ -102,6 +102,9 @@
 	font-family:      var(--font-family-code);
 	box-sizing:       border-box;
 	margin:           0;
+	word-wrap:        break-word;
+	white-space:      break-spaces;
+	word-break:       break-all;
 }
 
 #OutputViewConsole > textarea.error {

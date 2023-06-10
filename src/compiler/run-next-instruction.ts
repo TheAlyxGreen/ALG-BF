@@ -34,8 +34,8 @@ export default function runNextInstruction(initialState: compilerState): compile
 				return nextState;
 			}
 			c                                    = instructions[i];
-			nextState.vm.lastInstructionPosition = i;
 		}
+		nextState.vm.lastInstructionPosition = i;
 		switch (c.character) {
 			case ">":
 				nextState.vm.cursorPosition++;
