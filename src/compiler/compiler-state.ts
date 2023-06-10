@@ -19,7 +19,7 @@ export default function newCompilerState(maxLoopCount?: number, stepTime?: numbe
 	if (newStepTime > 1000) {
 		newStepTime = 1000;
 	}
-	let newLoopCount = maxLoopCount ?? 50;
+	let newLoopCount = maxLoopCount ?? 10000;
 	if (newLoopCount < 1000) {
 		newLoopCount = 1000;
 	}
@@ -33,6 +33,6 @@ export default function newCompilerState(maxLoopCount?: number, stepTime?: numbe
 		started:              false,
 		running:              false,
 		stepTime:             newStepTime,
-		maxLoopCount:         maxLoopCount ?? 1000,
+		maxLoopCount:         newLoopCount,
 	};
 }

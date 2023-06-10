@@ -33,7 +33,8 @@ export default function runNextInstruction(initialState: compilerState): compile
 				nextState.started = false;
 				return nextState;
 			}
-			c = instructions[i];
+			c                                    = instructions[i];
+			nextState.vm.lastInstructionPosition = i;
 		}
 		switch (c.character) {
 			case ">":
@@ -85,7 +86,7 @@ export default function runNextInstruction(initialState: compilerState): compile
 							break;
 						}
 					}
-				} else if (nextState.vm.loopCount > 1000) {
+				} else if (nextState.vm.loopCount > nextState.maxLoopCount) {
 					nextState.running                     = false;
 					nextState.started                     = false;
 					nextState.vm.errorCode                = "LOOP_FAULT";

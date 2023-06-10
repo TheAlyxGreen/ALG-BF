@@ -44,7 +44,11 @@ function OutputView(props: OutputViewProps) {
 								{`Position: ${props.vmState.errorChar.lineIndex}`}
 							</span>
 						</div>
-						{props.vmState.output}
+						<textarea
+							value={props.vmState.output}
+							disabled={true}
+							className={props.vmState.errorCode === "NONE" ? "" : "error"}
+						/>
 					</div>
 				</div>
 			</div>
