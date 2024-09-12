@@ -1,6 +1,6 @@
-# [ALG:BF] — A Brainfuck IDE
+# [BrainR0t] — A Brainfuck IDE
 
-[ALG:BF] is a basic IDE for the
+[BrainR0t] is a basic IDE for the
 [Brainfuck programming language](https://en.wikipedia.org/wiki/Brainfuck)
 written in TypeScript and using React.js. A deployed version of the program can be found here:
 [alyx.green/alg-bf](https://alyx.green/alg-bf).
@@ -24,7 +24,6 @@ error and prints the type of error in the output box. These errors come in 3 typ
 There are some known problems/limitations:
 
 - Copy/Paste only work through keyboard shortcuts, not the context menu
-- No settings menu to alter the way the IDE works at all (Maximum loop count, step-through speed, etc).
 - Input is still done by native JS pop-up box
 
 Future versions of this program may address some or all of these problems, but for the time being, this is the best
