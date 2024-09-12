@@ -1,9 +1,11 @@
 :root {
-	--output-view-font-color:    #aaa;
-	--output-view-font-size:     24pt;
-	--output-view-height:        10em;
+	--output-view-font-color:      #aaa;
+	--output-view-font-size:       18pt;
+	--output-view-font-size-large: calc(var(--output-view-font-size) * 1.5);
+	--output-view-font-size-small: calc(var(--output-view-font-size) * 0.75);
+	--output-view-height:          17rem;
 
-	--output-view-header-height: 1.5em;
+	--output-view-header-height:   1.5em;
 }
 
 #OutputView {
@@ -15,7 +17,7 @@
 	left:                0;
 	background-color:    var(--bg-color-light);
 	color:               var(--font-color-medium);
-	font-size:           var(--font-size-large);
+	font-size: var(--output-view-font-size);
 	box-sizing:          border-box;
 	padding:             0;
 	margin:              0;
@@ -36,7 +38,7 @@
 	top:              0;
 	background-color: var(--ui-header-color);
 	width:            100%;
-	font-size:        1.2rem;
+	font-size: var(--ui-font-size-small);
 	padding:          0.5rem 0 0.5rem 1rem;
 	box-shadow:       var(--ui-box-shadow);
 	height:           var(--output-view-header-height);
@@ -98,7 +100,7 @@
 	height:           100%;
 	overflow-y:       scroll;
 	color:            var(--font-color-medium);
-	font-size:        var(--font-size-large);
+	font-size: var(--output-view-font-size);
 	font-family:      var(--font-family-code);
 	box-sizing:       border-box;
 	margin:           0;
@@ -119,7 +121,7 @@
 	color:            #fff;
 	font-weight:      700;
 	padding:          0.1em 0.25em;
-	font-size:        var(--font-size-medium);
+	font-size: var(--output-view-font-size);
 	height:           4em;
 	box-sizing:       border-box;
 }
@@ -136,7 +138,7 @@
 .memCell {
 	display:                inline-block;
 	width:                  3em;
-	height:                 3em;
+	height: 3.375em;
 	position:               relative;
 	border:                 2px solid var(--ui-border-color-medium);
 	border-radius:          0.25em;
@@ -161,7 +163,6 @@
 	position:   absolute;
 	width:      100%;
 	margin:     0;
-	font-size:  0.75em;
 	text-align: center;
 	box-sizing: border-box;
 	height:     1.33em;
@@ -171,10 +172,11 @@
 .memCell-label {
 	background-color: #3338;
 	border-bottom:    1px solid #666;
+	font-size: var(--output-view-font-size-small);
 }
 
 .memCell-int {
-	top:            1.33em;
+	top: calc(var(--output-view-font-size-small) * 1.25);
 	padding-top:    0.07em;
 	vertical-align: center;
 	color:          var(--output-view-font-color);
@@ -185,4 +187,5 @@
 	padding-top:      0.07em;
 	background-color: #2224;
 	border-top:       1px solid #666;
+	font-size: var(--output-view-font-size-small);
 }

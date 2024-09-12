@@ -6,8 +6,8 @@ export default function loadInitialScript(this: App) {
 
 	nextState.textEditor.text =
 		"[ALG:BF] is a Brainfuck IDE\n" +
-		"by Alyx Green\n" +
-		"Desktop computers only for now\n" +
+		"By Alyx Green\n" +
+		"Use # for breakpoints\n" +
 		"More features coming soon\n" +
 		">++++++++[<+++++++++>-]<.\n" +
 		">++++[<+++++++>-]<+.\n" +

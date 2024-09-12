@@ -13,8 +13,9 @@
 	                           "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
 	                           sans-serif;
 
-	--font-size-large:         24pt;
-	--font-size-medium:        18pt;
+	--ui-font-size-small:  14pt;
+	--ui-font-size-medium: 18pt;
+	--ui-font-size-large:  24pt;
 
 	--ui-header-color:         #292f3d;
 	--ui-box-shadow:           0 1px 5px #00000044;

@@ -27,7 +27,7 @@
 #HeaderToolbarContainer {
 	position:   relative;
 	width:      calc(100% - 1em);
-	height:     2em;
+	height: 2rem;
 	top:        0.5em;
 	text-align: right;
 }

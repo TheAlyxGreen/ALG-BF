@@ -55,6 +55,7 @@ export default class App extends React.Component<any, appState> {
 		if (this.state.compiler.running) {
 			const nextState    = this.state;
 			nextState.compiler = runNextInstruction(nextState.compiler);
+			// eslint-disable-next-line react/no-is-mounted
 			this.setState(nextState);
 		}
 	}

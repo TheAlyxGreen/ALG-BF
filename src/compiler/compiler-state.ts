@@ -9,6 +9,7 @@ export type compilerState = {
 	running: boolean,
 	stepTime: number,
 	maxLoopCount: number,
+	canPause: boolean,
 }
 
 export default function newCompilerState(maxLoopCount?: number, stepTime?: number): compilerState {
@@ -34,5 +35,6 @@ export default function newCompilerState(maxLoopCount?: number, stepTime?: numbe
 		running:              false,
 		stepTime:             newStepTime,
 		maxLoopCount:         newLoopCount,
+		canPause: true,
 	};
 }

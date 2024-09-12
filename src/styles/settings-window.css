@@ -34,7 +34,7 @@
 	box-shadow:       var(--ui-box-shadow);
 	color:            var(--font-color-medium);
 	text-align:       center;
-	font-size:        var(--font-size-medium);
+	font-size: var(--ui-font-size-medium);
 	box-sizing:       border-box;
 	padding:          0.25em;
 	cursor:           default;
@@ -83,6 +83,7 @@
 	padding:       0 1.5em 1.5em 1.5em;
 	border-radius: var(--ui-border-radius-small);
 	border:        2px solid #444;
+	margin-bottom: 1em;
 }
 
 .SettingsGroupTitle {

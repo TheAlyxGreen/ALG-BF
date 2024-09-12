@@ -33,7 +33,7 @@ export default function runNextInstruction(initialState: compilerState): compile
 				nextState.started = false;
 				return nextState;
 			}
-			c                                    = instructions[i];
+			c = instructions[i];
 		}
 		nextState.vm.lastInstructionPosition = i;
 		switch (c.character) {
@@ -120,6 +120,11 @@ export default function runNextInstruction(initialState: compilerState): compile
 					}
 				}
 				i--;
+				break;
+			case "#":
+				if (nextState.canPause) {
+					nextState.running = false;
+				}
 				break;
 			default:
 				break;

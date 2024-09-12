@@ -36,6 +36,9 @@ function TextEditorCharElement(props: TextEditorCharProps) {
 		case ">":
 			charClassName = charClassName + " charArrow";
 			break;
+		case "#":
+			charClassName = charClassName + " charHash";
+			break;
 	}
 
 	let value = props.characterInfo.character;

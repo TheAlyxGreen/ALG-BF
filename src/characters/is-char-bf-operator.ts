@@ -7,6 +7,7 @@ export default function isCharBfOperator(input: string): boolean {
 		input === "[" ||
 		input === "]" ||
 		input === "." ||
-		input === ","
+		input === "," ||
+		input === "#"
 	);
 }

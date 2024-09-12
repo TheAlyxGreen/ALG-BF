@@ -21,6 +21,24 @@ function SettingsWindow(props: SettingsWindowProps): React.ReactElement {
 			</div>
 			<div id="SettingsWindowBody">
 				<div id="SettingsWindowContent">
+					<SettingsGroup title={"Appearance"}>
+						<Setting
+							id={"text-editor-font-size"}
+							label={"Editor Font Size"}
+							type={"number"}
+							min={6}
+							max={64}
+							placeholder={"" + props.settingsState.textEditorFontSize}
+						/>
+						<Setting
+							id={"output-font-size"}
+							label={"Output Font Size"}
+							type={"number"}
+							min={6}
+							max={64}
+							placeholder={"" + props.settingsState.outputFontSize}
+						/>
+					</SettingsGroup>
 					<SettingsGroup title={"Performance"}>
 						<Setting
 							id={"step-speed"}
@@ -39,8 +57,6 @@ function SettingsWindow(props: SettingsWindowProps): React.ReactElement {
 							placeholder={"" + props.compilerState.maxLoopCount}
 						/>
 					</SettingsGroup>
-					<br/>
-					<span>More coming soon...</span>
 					<div id="SettingsWindowBottom">
 						<input id="SettingsWindowApply" type="button" value="Apply"/>
 					</div>
@@ -58,6 +74,8 @@ export default React.memo(
 		} else if (prevProps.compilerState.stepTime !== nextProps.compilerState.stepTime) {
 			return false;
 		} else if (prevProps.compilerState.maxLoopCount !== nextProps.compilerState.maxLoopCount) {
+			return false;
+		} else if (prevProps.settingsState.textEditorFontSize !== nextProps.settingsState.textEditorFontSize) {
 			return false;
 		}
 
