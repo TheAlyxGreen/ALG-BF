@@ -5,7 +5,7 @@ export default function loadInitialScript(this: App) {
 	let nextState = this.state;
 
 	nextState.textEditor.text =
-		"[ALG:BF] is a Brainfuck IDE\n" +
+		"[BrainR0t] is a Brainfuck IDE\n" +
 		"By Alyx Green\n" +
 		"Use # for breakpoints\n" +
 		"More features coming soon\n" +

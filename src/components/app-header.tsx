@@ -18,7 +18,7 @@ function AppHeader(props: AppHeaderProps) {
 
 	return (
 		<header id="AppHeader">
-			<span id="AppLogo" className="code">[ALG:BF]</span>
+			<span id="AppLogo" className="code">[BrainR0t]</span>
 			<div id="HeaderToolbarContainer">
 				<div id="CompileToolbar" className="toolbar">
 					<span id="CompileButton" className={headerClasses} title="Run code">play_arrow</span>
